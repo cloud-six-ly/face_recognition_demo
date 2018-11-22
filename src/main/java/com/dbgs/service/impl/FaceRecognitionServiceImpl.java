@@ -8,6 +8,7 @@ import javax.imageio.stream.FileImageOutputStream;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
@@ -80,8 +81,8 @@ public class FaceRecognitionServiceImpl implements FaceRecognitionService {
 	}
 
 	@Override
-	public String registry(String img_base64) {
-		return faceRegistry.regist(img_base64);
+	public String registry(String userName, String img_base64) {
+		return faceRegistry.regist(userName, img_base64);
 	}
 
 	@Override
@@ -94,7 +95,7 @@ public class FaceRecognitionServiceImpl implements FaceRecognitionService {
 	@Override
 	public void task(String caller, String path, String accessToken) {
 		/*List<File> fileList = DirectoryAndFileUtils.getFileSort(path);
-		//每分钟最多处理60张图片（cause API的QPS限制 & 网络接口调用占用时长）
+		//最多处理20张图片（cause API的QPS限制 & 网络接口调用占用时长）
 		for(int i = 0; i < 60 ; i++) {
 			System.out.println("Task processing:" + fileList.get(i).getName() + ",by using " + caller + "technology");
 			String base64 = null;
@@ -116,6 +117,11 @@ public class FaceRecognitionServiceImpl implements FaceRecognitionService {
 		}*/
 	}
 
+	@Async
+	public void d() {
+		
+	}
+	
 	@Override
 	public String find(String img_base64) {
 		String result = faceFind.find(img_base64);

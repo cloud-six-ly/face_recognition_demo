@@ -36,7 +36,7 @@ public class FaceRecognitionController {
 			result.setResult(faceRecognitionService.regist(user_id, user_info, img_base64, authService.getAuth()));
 			break;
 		case "CHENGDU":
-			result.setResult(faceRecognitionService.registry(img_base64));
+			result.setResult(faceRecognitionService.registry(user_info, img_base64));
 			break;
 		default:
 			result.setCaller("ERROR");
@@ -69,8 +69,8 @@ public class FaceRecognitionController {
 		return faceRecognitionService.FaceVerify(img_base64, authService.getAuth());
 	}
 	
-	//一分钟一次
-	@Scheduled(fixedDelay = 60000)
+	//半分钟一次
+	@Scheduled(fixedDelay = 30000)
 	public void task() {
 		faceRecognitionService.task(switchService.getCaller(), infoService.getValueByKey("Directory"), authService.getAuth());
 	}

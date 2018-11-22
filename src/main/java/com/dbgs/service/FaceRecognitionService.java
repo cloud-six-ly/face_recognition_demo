@@ -6,7 +6,7 @@ public interface FaceRecognitionService {
 	
 	String searchFace(String img_base64, String accessToken);
 	
-	String registry(String img_base64);
+	String registry(String userName, String img_base64);
 	
 	String FaceVerify(String img_base64, String accessToken);
 	
